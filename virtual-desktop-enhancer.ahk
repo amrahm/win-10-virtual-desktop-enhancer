@@ -107,7 +107,9 @@ hkComboPinApp              := KeyboardShortcutsCombinationsPinApp
 hkComboUnpinApp            := KeyboardShortcutsCombinationsUnpinApp
 hkComboTogglePinApp        := KeyboardShortcutsCombinationsTogglePinApp
 hkComboOpenDesktopManager  := KeyboardShortcutsCombinationsOpenDesktopManager
-hkComboChangeDesktopName     := KeyboardShortcutsCombinationsChangeDesktopName
+hkComboChangeDesktopName   := KeyboardShortcutsCombinationsChangeDesktopName
+hkTaskbarScrollUp          := KeyboardShortcutsCombinationsTaskbarScrollUpKey
+hkTaskbarScrollDown        := KeyboardShortcutsCombinationsTaskbarScrollDownKey
 
 arrayS := Object(),                     arrayR := Object()
 arrayS.Insert("\s*|,"),                 arrayR.Insert("")
@@ -130,7 +132,9 @@ for index in arrayS {
     hkComboUnpinApp           := RegExReplace(hkComboUnpinApp, arrayS[index], arrayR[index])
     hkComboTogglePinApp       := RegExReplace(hkComboTogglePinApp, arrayS[index], arrayR[index])
     hkComboOpenDesktopManager := RegExReplace(hkComboOpenDesktopManager, arrayS[index], arrayR[index])
-    hkComboChangeDesktopName    := RegExReplace(hkComboChangeDesktopName, arrayS[index], arrayR[index])    
+    hkComboChangeDesktopName  := RegExReplace(hkComboChangeDesktopName, arrayS[index], arrayR[index])    
+    hkTaskbarScrollUp         := RegExReplace(hkTaskbarScrollUp, arrayS[index], arrayR[index])
+    hkTaskbarScrollDown       := RegExReplace(hkTaskbarScrollDown, arrayS[index], arrayR[index])
 }
 
 ; Setup key bindings dynamically
@@ -174,6 +178,7 @@ while (i < 10) {
     i := i + 1
 }
 
+
 if (!(GeneralUseNativePrevNextDesktopSwitchingIfConflicting && _IsPrevNextDesktopSwitchingKeyboardShortcutConflicting(hkModifiersSwitch, hkIdentifierPrevious))) {
     setUpHotkeyWithOneSetOfModifiersAndIdentifier(hkModifiersSwitch, hkIdentifierPrevious, "OnShiftLeftPress", "[KeyboardShortcutsModifiers] SwitchDesktop, [KeyboardShortcutsIdentifiers] PreviousDesktop")
 }
@@ -199,9 +204,10 @@ setUpHotkeyWithCombo(hkComboOpenDesktopManager, "OpenDesktopManager", "[Keyboard
 
 setUpHotkeyWithCombo(hkComboChangeDesktopName, "ChangeDesktopName", "[KeyboardShortcutsCombinations] ChangeDesktopName")
 
+
 if (GeneralTaskbarScrollSwitching) {
-    Hotkey, ~WheelUp, OnTaskbarScrollUp
-    Hotkey, ~WheelDown, OnTaskbarScrollDown
+    setUpHotkeyWithCombo(hkTaskbarScrollUp, "OnTaskbarScrollUp", "[KeyboardShortcutsCombinations] TaskbarScrollUpKey")
+    setUpHotkeyWithCombo(hkTaskbarScrollDown, "OnTaskbarScrollDown", "[KeyboardShortcutsCombinations] TaskbarScrollDownKey")
 }
 
 ; ======================================================================
