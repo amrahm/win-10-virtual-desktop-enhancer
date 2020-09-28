@@ -87,6 +87,7 @@ SwitchToDesktop(GeneralDefaultDesktop)
 if (GeneralDefaultDesktop == initialDesktopNo) {
     OnDesktopSwitch(GeneralDefaultDesktop)
 }
+OnDesktopSwitch(initialDesktopNo)
 
 ; ======================================================================
 ; Set Up Key Bindings
