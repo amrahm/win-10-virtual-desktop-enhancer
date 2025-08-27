@@ -114,6 +114,8 @@ hkComboOpenDesktopManager  := KeyboardShortcutsCombinationsOpenDesktopManager
 hkComboChangeDesktopName   := KeyboardShortcutsCombinationsChangeDesktopName
 hkTaskbarScrollUp          := KeyboardShortcutsCombinationsTaskbarScrollUpKey
 hkTaskbarScrollDown        := KeyboardShortcutsCombinationsTaskbarScrollDownKey
+hkCustomProgram1           := KeyboardShortcutsCustomProgramsCustomProgram1Shortcut
+hkCustomProgram2           := KeyboardShortcutsCustomProgramsCustomProgram2Shortcut
 
 arrayS := Object(),                     arrayR := Object()
 arrayS.Insert("\s*|,"),                 arrayR.Insert("")
@@ -139,6 +141,8 @@ for index in arrayS {
     hkComboChangeDesktopName  := RegExReplace(hkComboChangeDesktopName, arrayS[index], arrayR[index])    
     hkTaskbarScrollUp         := RegExReplace(hkTaskbarScrollUp, arrayS[index], arrayR[index])
     hkTaskbarScrollDown       := RegExReplace(hkTaskbarScrollDown, arrayS[index], arrayR[index])
+    hkCustomProgram1          := RegExReplace(hkCustomProgram1, arrayS[index], arrayR[index])
+    hkCustomProgram2          := RegExReplace(hkCustomProgram2, arrayS[index], arrayR[index])
 }
 
 ; Setup key bindings dynamically
@@ -207,6 +211,11 @@ setUpHotkeyWithCombo(hkComboTogglePinApp, "OnTogglePinAppPress", "[KeyboardShort
 setUpHotkeyWithCombo(hkComboOpenDesktopManager, "OpenDesktopManager", "[KeyboardShortcutsCombinations] OpenDesktopManager")
 
 setUpHotkeyWithCombo(hkComboChangeDesktopName, "ChangeDesktopName", "[KeyboardShortcutsCombinations] ChangeDesktopName")
+
+setUpHotkeyWithCombo(hkCustomProgram1, "OnCustomProgram1Shortcut", "[KeyboardShortcutsCustomPrograms] CustomProgram1Shortcut")
+setUpHotkeyWithCombo(hkCustomProgram2, "OnCustomProgram2Shortcut", "[KeyboardShortcutsCustomPrograms] CustomProgram2Shortcut")
+
+
 
 
 if (GeneralTaskbarScrollSwitching) {
@@ -544,6 +553,15 @@ _RunProgramWhenSwitchingFromDesktop(n:=1) {
         n := 10
     }
     _RunProgram(RunProgramWhenSwitchingFromDesktop%n%, "[RunProgramWhenSwitchingFromDesktop] " . n)
+}
+
+global customProgram1:=KeyboardShortcutsCustomProgramsCustomProgram1
+OnCustomProgram1Shortcut() {
+    _RunProgram(customProgram1, "[KeyboardShortcutsCustomPrograms] CustomProgram1")
+}
+global customProgram2:=KeyboardShortcutsCustomProgramsCustomProgram2
+OnCustomProgram2Shortcut() {
+    _RunProgram(customProgram2, "[KeyboardShortcutsCustomPrograms] CustomProgram2")
 }
 
 _ChangeBackground(n:=1) {
