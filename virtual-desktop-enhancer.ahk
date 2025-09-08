@@ -1,6 +1,13 @@
 #Requires AutoHotkey v1.1.33.08
+#NoEnv ; Recommended for performance and compatibility with future AutoHotkey releases.
 #SingleInstance, force
 #WinActivateForce
+ListLines Off
+SetBatchLines -1
+SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
+Process, Priority,, H
+SetWinDelay -1
+SetControlDelay -1
 #HotkeyInterval 20
 #MaxHotkeysPerInterval 20000
 #MenuMaskKey vk07
@@ -361,6 +368,7 @@ OnDesktopSwitch(n:=1) {
 
 SwitchToDesktop(n:=1) {
     doFocusAfterNextSwitch=1
+    WinActivate ahk_class Shell_TrayWnd
     _ChangeDesktop(n)
 }
 
@@ -619,7 +627,7 @@ _GetForemostWindowIdOnDesktop(n) {
     n -= 1
 
     ; winIDList contains a list of windows IDs ordered from the top to the bottom for each desktop.
-    WinGet winIDList, list
+    WinGet winIDList, list, , Prio, Prio
     Loop % winIDList {
         windowID := % winIDList%A_Index%
         windowIsOnDesktop := DllCall(IsWindowOnDesktopNumberProc, UInt, WindowID, UInt, n)
