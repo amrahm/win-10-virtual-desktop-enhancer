@@ -1,3 +1,4 @@
+#Requires AutoHotkey v1.1.33.08
 #SingleInstance, force
 #WinActivateForce
 #HotkeyInterval 20
@@ -138,7 +139,7 @@ for index in arrayS {
     hkComboUnpinApp           := RegExReplace(hkComboUnpinApp, arrayS[index], arrayR[index])
     hkComboTogglePinApp       := RegExReplace(hkComboTogglePinApp, arrayS[index], arrayR[index])
     hkComboOpenDesktopManager := RegExReplace(hkComboOpenDesktopManager, arrayS[index], arrayR[index])
-    hkComboChangeDesktopName  := RegExReplace(hkComboChangeDesktopName, arrayS[index], arrayR[index])    
+    hkComboChangeDesktopName  := RegExReplace(hkComboChangeDesktopName, arrayS[index], arrayR[index])
     hkTaskbarScrollUp         := RegExReplace(hkTaskbarScrollUp, arrayS[index], arrayR[index])
     hkTaskbarScrollDown       := RegExReplace(hkTaskbarScrollDown, arrayS[index], arrayR[index])
     hkCustomProgram1          := RegExReplace(hkCustomProgram1, arrayS[index], arrayR[index])
@@ -186,7 +187,6 @@ while (i < 10) {
     i := i + 1
 }
 
-
 if (!(GeneralUseNativePrevNextDesktopSwitchingIfConflicting && _IsPrevNextDesktopSwitchingKeyboardShortcutConflicting(hkModifiersSwitch, hkIdentifierPrevious))) {
     setUpHotkeyWithOneSetOfModifiersAndIdentifier(hkModifiersSwitch, hkIdentifierPrevious, "OnShiftLeftPress", "[KeyboardShortcutsModifiers] SwitchDesktop, [KeyboardShortcutsIdentifiers] PreviousDesktop")
 }
@@ -214,9 +214,6 @@ setUpHotkeyWithCombo(hkComboChangeDesktopName, "ChangeDesktopName", "[KeyboardSh
 
 setUpHotkeyWithCombo(hkCustomProgram1, "OnCustomProgram1Shortcut", "[KeyboardShortcutsCustomPrograms] CustomProgram1Shortcut")
 setUpHotkeyWithCombo(hkCustomProgram2, "OnCustomProgram2Shortcut", "[KeyboardShortcutsCustomPrograms] CustomProgram2Shortcut")
-
-
-
 
 if (GeneralTaskbarScrollSwitching) {
     setUpHotkeyWithCombo(hkTaskbarScrollUp, "OnTaskbarScrollUp", "[KeyboardShortcutsCombinations] TaskbarScrollUpKey")
@@ -459,22 +456,22 @@ _SetDesktopName(n:=1, name:=0) {
 
 _GetNextDesktopNumber() {
     i := _GetCurrentDesktopNumber()
-	if (GeneralDesktopWrapping == 1) {
-		i := (i == _GetNumberOfDesktops() ? 1 : i + 1)
-	} else {
-		i := (i == _GetNumberOfDesktops() ? i : i + 1)
-	}
+    if (GeneralDesktopWrapping == 1) {
+        i := (i == _GetNumberOfDesktops() ? 1 : i + 1)
+    } else {
+        i := (i == _GetNumberOfDesktops() ? i : i + 1)
+    }
 
     return i
 }
 
 _GetPreviousDesktopNumber() {
     i := _GetCurrentDesktopNumber()
-	if (GeneralDesktopWrapping == 1) {
-		i := (i == 1 ? _GetNumberOfDesktops() : i - 1)
-	} else {
-		i := (i == 1 ? i : i - 1)
-	}
+    if (GeneralDesktopWrapping == 1) {
+        i := (i == 1 ? _GetNumberOfDesktops() : i - 1)
+    } else {
+        i := (i == 1 ? i : i - 1)
+    }
 
     return i
 }
